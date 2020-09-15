@@ -15,8 +15,9 @@ const pool = require("./connection");
 routes.get("/restaurants", (req, res) => {
   let city = req.query.city;
   let atmosphere = req.query.atmosphere;
-  console.log(req.query.atmosphere);
-  let queryString = `SELECT * FROM restaurants WHERE city='${city}' and atmosphere='${atmosphere}' ORDER BY RANDOM() LIMIT 15`;
+  let queryString = `SELECT * FROM restaurants WHERE city='${city}' and ${atmosphere} = ANY (atmosphere)
+ ORDER BY RANDOM() LIMIT 1`;
+  console.log(atmosphere);
   pool.query(queryString).then((response) => {
     res.json(response.rows);
   });
