@@ -11,4 +11,6 @@ routes.get("/activites", (req, res) => {
     res.json(response.rows);
   });
 });
+
+
 module.exports = routes;

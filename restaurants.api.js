@@ -19,8 +19,6 @@ routes.get("/restaurants", (req, res) => {
   pool.query(queryString).then((response) => {
     res.json(response.rows);
   });
-
 });
-
 
 module.exports = routes;
