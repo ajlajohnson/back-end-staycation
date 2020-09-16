@@ -17,7 +17,7 @@ routes.get("/restaurants", (req, res) => {
   let atmosphere = req.query.atmosphere;
   let time = req.query.tod;
   let kids = req.query.kids;
-  console.log(city, kids, time, atmosphere);
+  // console.log(city, kids, time, atmosphere);
   let option1 = `SELECT * FROM restaurants WHERE city='${city}' and '${atmosphere}' = ANY (atmosphere) and '${time}' = ANY (time) and kids='${kids}' ORDER BY RANDOM() LIMIT 1`;
   let option2 = `SELECT * FROM restaurants WHERE city='${city}' and '${atmosphere}' = ANY (atmosphere) and '${time}' = ANY (time) ORDER BY RANDOM() LIMIT 1`;
   let queryString = undefined;
@@ -28,7 +28,7 @@ routes.get("/restaurants", (req, res) => {
   }
   pool.query(queryString).then((response) => {
     res.json(response.rows);
-    console.log(response.rows);
+    // console.log(response.rows);
   });
 });
 

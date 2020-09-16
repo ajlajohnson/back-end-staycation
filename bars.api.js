@@ -5,7 +5,6 @@ const express = require("express");
 const routes = express.Router();
 const pool = require("./connection");
 
-
 // routes.get("/bars", (req, res) => {
 //   let city = req.query.city;
 //   let interests = req.query.interest;
@@ -19,13 +18,12 @@ const pool = require("./connection");
 //   });
 // });
 
-
 routes.get("/bars", (req, res) => {
   let city = req.query.city;
   let atmosphere = req.query.atmosphere;
   let time = req.query.tod;
   let kids = req.query.kids;
-  console.log(city, kids, time, atmosphere);
+  // console.log(city, kids, time, atmosphere);
   let option1 = `SELECT * FROM bars WHERE city='${city}' and '${atmosphere}' = ANY (atmosphere) and '${time}' = ANY (time) and kids='${kids}' ORDER BY RANDOM() LIMIT 1`;
   let option2 = `SELECT * FROM bars WHERE city='${city}' and '${atmosphere}' = ANY (atmosphere) and '${time}' = ANY (time) ORDER BY RANDOM() LIMIT 1`;
   let queryString = undefined;
@@ -36,9 +34,8 @@ routes.get("/bars", (req, res) => {
   }
   pool.query(queryString).then((response) => {
     res.json(response.rows);
-    console.log(response.rows);
+    // console.log(response.rows);
   });
 });
-
 
 module.exports = routes;
