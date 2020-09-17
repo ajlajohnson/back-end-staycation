@@ -47,7 +47,7 @@ routes.get("/activities", (req, res) => {
     let interest7 = interests[6];
     let interest8 = interests[7];
     let interest9 = interests[8];
-    let queryString = `SELECT * FROM activities WHERE '${interest1}' = ANY (interests) OR '${interest2}' = ANY (interests) OR '${interest3}' = ANY (interests) OR '${interest4}' = ANY (interests) OR '${interest5}' = ANY (interests) OR '${interest6}' = ANY (interests) OR '${interest7}' = ANY (interests) OR '${interest8}' = ANY (interests) OR '${interest9}' = ANY (interests) AND '${time}' = ANY (time) and kids='${kids}' AND city='${city}' ORDER BY RANDOM() LIMIT 2`;
+    let queryString = `SELECT * FROM activities WHERE city='${city}' AND '${time}' = ANY (time) AND '${interest1}' = ANY (interests) OR '${interest2}' = ANY (interests) OR '${interest3}' = ANY (interests) OR '${interest4}' = ANY (interests) OR '${interest5}' = ANY (interests) OR '${interest6}' = ANY (interests) OR '${interest7}' = ANY (interests) OR '${interest8}' = ANY (interests) OR '${interest9}' = ANY (interests) AND kids='${kids}' ORDER BY RANDOM() LIMIT 2`;
     pool
       .query(queryString)
       .then((response) => {
