@@ -5,9 +5,6 @@ const express = require("express");
 const routes = express.Router();
 const pool = require("./connection");
 
-// routes.get("/restaurants", (req, res) => {
-//   res.json();
-// });
 
 routes.get("/restaurants", (req, res) => {
   let city = req.query.city;
@@ -18,7 +15,7 @@ routes.get("/restaurants", (req, res) => {
   let option1 = `SELECT * FROM restaurants WHERE city='${city}' and '${atmosphere}' = ANY (atmosphere) and '${time}' = ANY (time) and kids='${kids}' ORDER BY RANDOM() LIMIT 1`;
   let option2 = `SELECT * FROM restaurants WHERE city='${city}' and '${atmosphere}' = ANY (atmosphere) and '${time}' = ANY (time) ORDER BY RANDOM() LIMIT 1`;
   let queryString = undefined;
-  if (kids === 0) {
+  if (kids == 0) {
     queryString = option2;
   } else {
     queryString = option1;
