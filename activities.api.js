@@ -5,7 +5,6 @@ const express = require("express");
 const routes = express.Router();
 const pool = require("./connection");
 
-
 routes.get("/activities", (req, res) => {
   let city = req.query.city;
   let interests = req.query.interest;
@@ -24,7 +23,14 @@ routes.get("/activities", (req, res) => {
     let interest7 = interests[6];
     let interest8 = interests[7];
     let interest9 = interests[8];
-    let queryString = `SELECT * FROM activities WHERE ('${interest1}' = ANY (interests) OR '${interest2}' = ANY (interests) OR '${interest3}' = ANY (interests) OR '${interest4}' = ANY (interests) OR '${interest5}' = ANY (interests) OR '${interest6}' = ANY (interests) OR '${interest7}' = ANY (interests) OR '${interest8}' = ANY (interests)) AND city ='${city}' AND '${time}' = ANY (time) AND kids='${kids}' ORDER BY RANDOM() LIMIT 2`;
+    let option1 = `SELECT * FROM activities WHERE ('${interest1}' = ANY (interests) OR '${interest2}' = ANY (interests) OR '${interest3}' = ANY (interests) OR '${interest4}' = ANY (interests) OR '${interest5}' = ANY (interests) OR '${interest6}' = ANY (interests) OR '${interest7}' = ANY (interests) OR '${interest8}' = ANY (interests)) AND city ='${city}' AND '${time}' = ANY (time) AND kids='${kids}' ORDER BY RANDOM() LIMIT 25`;
+    let option2 = `SELECT * FROM activities WHERE ('${interest1}' = ANY (interests) OR '${interest2}' = ANY (interests) OR '${interest3}' = ANY (interests) OR '${interest4}' = ANY (interests) OR '${interest5}' = ANY (interests) OR '${interest6}' = ANY (interests) OR '${interest7}' = ANY (interests) OR '${interest8}' = ANY (interests)) AND city ='${city}' AND '${time}' = ANY (time) ORDER BY RANDOM() LIMIT 25`;
+    let queryString = undefined;
+    if (kids == 0) {
+      queryString = option2;
+    } else {
+      queryString = option1;
+    }
     pool
       .query(queryString)
       .then((response) => {
@@ -47,6 +53,5 @@ routes.get("/activities", (req, res) => {
       });
   }
 });
-
 
 module.exports = routes;
